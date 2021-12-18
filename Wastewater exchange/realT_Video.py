@@ -22,7 +22,7 @@ while(True):
     if choice == None:
         continue
     
-    elif choice == 0: # choice의 선ㅌㄱ이 0일 경우에 프로그램을 종료시킴
+    elif choice == 0: # choice의 선택이 0일 경우에 프로그램을 종료시킴
         print('프로그램이 3초뒤 종료됩니다.')
         time.sleep(3)
         break
