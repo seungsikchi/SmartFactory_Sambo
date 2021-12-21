@@ -2,6 +2,7 @@ import cv2, os
 import datetime
 import time
 import predict
+import matplotlib as plt
 from Module import crop
 
 while(True):
@@ -32,7 +33,7 @@ while(True):
         pred_path = './realT_crop/' # predict할 이미지 주소를 설정
 
         pred_model = predict.PH_predict(pred_path) # PH측정 시작
-        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
 
         os.system('cls')
 
@@ -51,6 +52,8 @@ while(True):
             key = cv2.waitKey(1)
 
             ret, frame = cap.read()
+            # print(ret)
+            # plt.imshow(frame)
             cv2.imshow('Original Video', frame) # 캡쳐를 할 때마다 불러서 실행시키면 성능이 안좋을 것 같다 -> 나중에 삭제
             
             sec = int(time.time()-start)
@@ -66,14 +69,14 @@ while(True):
                 min = 0
                 print('[ run time : {}시간 {}분 ]\n'.format(hour, min))
             
-            if min % 5 == 0: # 프로그램을 시작하면 1분째에 한 번 실행한다.(5분주기)
+            if min % 5 == 0: # 프로그램을 시작하면 1분째에 한 번 실행한다.(5분주기) 한번 할때 예측을 9번정도 반복
                 print('[ {}분이 경과하였습니다. PH 예측을 시작합니다... ]\n'.format(min))
 
-                for i in range(7):
+                for i in range(7): # 캡처를 하는 부분
                     ret, frame = cap.read()
                     file = img_path + str(i+1) + '.jpg'
                     cv2.imwrite(file, frame)
-                    time.sleep(1) # 초 단위 
+                    time.sleep(10) # 초 단위 
                 
                 crop.readPath(img_path) # crop
                 print('---> 이미지 저장, 자르기 완료'.format(i+1))
