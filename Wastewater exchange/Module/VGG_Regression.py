@@ -7,7 +7,7 @@ from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 
-def Model(inputs=(256, 256, 3)):
+def Model(inputs=(256, 256, 3)): # VGG 회귀모델
 
     model = tf.keras.Sequential([
         Conv2D(filters=32, kernel_size=3, padding='same', activation='relu', input_shape=inputs),
@@ -39,7 +39,7 @@ def Model(inputs=(256, 256, 3)):
     return model
 
 def train_model(input_shape, train_x, train_y, epoch):
-    model = Model(input_shape) 
+    model = Model(input_shape) # 위에 설정한 input_shape를 넣어서 실행을 함
 
     history = model.fit(train_x, train_y, epochs=epoch, validation_split=0.2)
     model.save('../VGG_model.h5')
@@ -82,7 +82,7 @@ def correlation_visualization(trained_model, train_x, train_y, test_x, test_y):
 
     plt.show()
 
-def correlation(train_y, test_y):
+def correlation(train_y, test_y): # 산점도 분석하는 함수
     for i in range(train_y):
         train_sum = train_sum + train_y[i]
         test_sum = test_sum + test_y[i]
